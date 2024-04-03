@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "bfzf",
+  "version": "1.0",
+  "description": "A Firefox add-one that allows you to fzf your bookmarks & history.",
+  "permissions": ["history", "tabs", "bookmarks"],
+  "icons": {
+    "48": "icon.png"
+  },
+  "commands": {
+    "open_history": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+H"
+      },
+      "description": "Open history"
+    },
+    "open_bookmarks": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+B"
+      },
+      "description": "Open bookmarks"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
