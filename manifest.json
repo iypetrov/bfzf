@@ -1,9 +1,13 @@
 {
   "manifest_version": 2,
   "name": "bfzf",
-  "version": "1.0",
-  "description": "A Firefox add-one that allows you to fzf your bookmarks & history.",
-  "permissions": ["history", "tabs", "bookmarks"],
+  "version": "1.1.0",
+  "description": "A Firefox add-on  that allows you to fzf your bookmarks & history.",
+  "permissions": [
+    "history",
+    "tabs",
+    "bookmarks"
+  ],
   "icons": {
     "48": "icon.png"
   },
@@ -22,6 +26,8 @@
     }
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   }
 }

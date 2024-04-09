@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
   const filterInput = document.getElementById("filter");
   const urlList = document.getElementById("history-list");
-  let fzt;
 
-  browser.history.search({ text: "", maxResults: 100 }).then((historyItems) => {
-    let uniqueUrls = [...new Set(historyItems.map((item) => item.url))];
+  browser.history.search({ text: "", maxResults: 250 }).then((historyItems) => {
+    let uniqueUrls = [
+      ...new Set(historyItems.map((item) => item.title + " " + item.url)),
+    ];
     uniqueUrls.forEach((url) => {
       let listItem = document.createElement("div");
       listItem.textContent = url;
@@ -54,7 +55,9 @@ document.addEventListener("DOMContentLoaded", function() {
         break;
       case "Enter":
         if (selectedUrl) {
-          browser.tabs.create({ url: selectedUrl.textContent });
+          browser.tabs.create({
+            url: selectedUrl.textContent.split(" ").pop(),
+          });
           window.close();
         }
         return;

@@ -3,7 +3,23 @@ document.addEventListener("DOMContentLoaded", function() {
   const urlList = document.getElementById("bookmarks-list");
 
   browser.bookmarks.search({}).then((bookmarkItems) => {
-    let uniqueUrls = [...new Set(bookmarkItems.map((item) => item.url))];
+    let uniqueUrls = [
+      ...new Set(
+        bookmarkItems
+          .filter((item) => item.url != undefined)
+          .filter(
+            (item) =>
+              ![
+                "Get Help",
+                "Customise Firefox",
+                "Get Involved",
+                "About Us",
+              ].includes(item.title),
+          )
+          .map((item) => item.title + " " + item.url),
+      ),
+    ];
+
     uniqueUrls.forEach((url) => {
       let listItem = document.createElement("div");
 
@@ -54,7 +70,9 @@ document.addEventListener("DOMContentLoaded", function() {
         break;
       case "Enter":
         if (selectedUrl) {
-          browser.tabs.create({ url: selectedUrl.textContent });
+          browser.tabs.create({
+            url: selectedUrl.textContent.split(" ").pop(),
+          });
           window.close();
         }
         return;
