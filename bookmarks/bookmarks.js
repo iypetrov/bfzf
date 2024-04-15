@@ -1,9 +1,12 @@
+import { generateHTMLForUrls, listenUserInput } from "../utils/common.js";
+import { fzfSearch } from "../utils/fzf.js";
+
 document.addEventListener("DOMContentLoaded", function() {
   const filterInput = document.getElementById("filter");
-  const urlList = document.getElementById("bookmarks-list");
+  const cnt = document.getElementById("bookmarks-list");
 
   browser.bookmarks.search({}).then((bookmarkItems) => {
-    let uniqueUrls = [
+    let urls = [
       ...new Set(
         bookmarkItems
           .filter((item) => item.url != undefined)
@@ -19,79 +22,21 @@ document.addEventListener("DOMContentLoaded", function() {
           .map((item) => item.title + " " + item.url),
       ),
     ];
-
-    uniqueUrls.forEach((url) => {
-      let listItem = document.createElement("div");
-
-      listItem.textContent = url;
-      urlList.appendChild(listItem);
-    });
-
-    if (urlList.childNodes.length > 0) {
-      urlList.childNodes[0].classList.add("selected");
-    }
+    generateHTMLForUrls(urls, cnt);
   });
 
   filterInput.addEventListener("input", function() {
-    let filterValue = this.value.toLowerCase();
-    let listItems = urlList.getElementsByTagName("div");
-    for (let i = 0; i < listItems.length; i++) {
-      let url = listItems[i].textContent;
-      listItems[i].style.display = url.toLowerCase().includes(filterValue)
-        ? ""
-        : "none";
-    }
-
-    let visibleItems = urlList.querySelectorAll(
-      "div:not([style='display: none;'])",
-    );
-    if (visibleItems.length > 0) {
-      urlList.querySelector(".selected").classList.remove("selected");
-      visibleItems[0].classList.add("selected");
-    }
+    let input = this.value;
+    let urls = cnt.getElementsByTagName("div");
+    fzfSearch(input, urls);
   });
 
   window.addEventListener("keydown", function(event) {
-    let selectedUrl = urlList.querySelector(".selected");
-    let nextSelectedUrl;
-
-    switch (event.key) {
-      case "ArrowUp":
-        nextSelectedUrl = selectedUrl.previousElementSibling;
-        while (nextSelectedUrl && nextSelectedUrl.style.display === "none") {
-          nextSelectedUrl = nextSelectedUrl.previousElementSibling;
-        }
-        break;
-      case "ArrowDown":
-        nextSelectedUrl = selectedUrl.nextElementSibling;
-        while (nextSelectedUrl && nextSelectedUrl.style.display === "none") {
-          nextSelectedUrl = nextSelectedUrl.nextElementSibling;
-        }
-        break;
-      case "Enter":
-        if (selectedUrl) {
-          browser.tabs.create({
-            url: selectedUrl.textContent.split(" ").pop(),
-          });
-          window.close();
-        }
-        return;
-    }
-
-    if (nextSelectedUrl) {
-      selectedUrl.classList.remove("selected");
-      nextSelectedUrl.classList.add("selected");
-    }
+    let selectedUrl = cnt.querySelector(".selected");
+    listenUserInput(event, selectedUrl);
   });
 
-  urlList.addEventListener("click", function(e) {
-    if (e.target.tagName === "DIV") {
-      let selectedUrl = urlList.querySelector(".selected");
-      if (selectedUrl) {
-        selectedUrl.classList.remove("selected");
-      }
-
-      e.target.classList.add("selected");
-    }
+  window.addEventListener("blur", function() {
+    window.close();
   });
 });
