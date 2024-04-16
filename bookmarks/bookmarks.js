@@ -1,8 +1,8 @@
-import { generateHTMLForUrls, listenUserInput } from "../utils/common.js";
+import { generateUrlsCnt, listenUserInput } from "../utils/common.js";
 import { fzfSearch } from "../utils/fzf.js";
 
 document.addEventListener("DOMContentLoaded", function() {
-  const filterInput = document.getElementById("filter");
+  const input = document.getElementById("filter");
   const cnt = document.getElementById("bookmarks-list");
 
   browser.bookmarks.search({}).then((bookmarkItems) => {
@@ -22,13 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
           .map((item) => item.title + " " + item.url),
       ),
     ];
-    generateHTMLForUrls(urls, cnt);
+    generateUrlsCnt(urls, cnt);
   });
 
-  filterInput.addEventListener("input", function() {
-    let input = this.value;
-    let urls = cnt.getElementsByTagName("div");
-    fzfSearch(input, urls);
+  input.addEventListener("input", function() {
+    fzfSearch(cnt, this.value);
   });
 
   window.addEventListener("keydown", function(event) {

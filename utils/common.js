@@ -1,4 +1,4 @@
-export function generateHTMLForUrls(urls, cnt) {
+export function generateUrlsCnt(urls, cnt) {
   urls.forEach((url) => {
     let item = document.createElement("div");
     item.textContent = url;
@@ -21,7 +21,6 @@ export function listenUserInput(event, selectedUrl) {
       }
       break;
     case "ArrowDown":
-      console.log("a");
       nextSelectedUrl = selectedUrl.nextElementSibling;
       while (nextSelectedUrl && nextSelectedUrl.style.display === "none") {
         nextSelectedUrl = nextSelectedUrl.nextElementSibling;
