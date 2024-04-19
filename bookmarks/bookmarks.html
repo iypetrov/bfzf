@@ -5,35 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bfzf-bookmarks</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
-    <style>
-      .popup-bg {
-        background-color: #080808;
-      }
-      .filter-bg {
-        background-color: #1c1c1c;
-      }
-      .selected {
-        background-color: #1c1c1c;
-      }
-      body {
-        overflow-x: hidden;
-      }
-      #bookmarks-list {
-        max-width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      #filter:focus {
-        outline: none;
-      }
-      .matched {
-        color: red;
-      }
-    </style>
+    <link rel="stylesheet" href="../style.css" />
   </head>
   <body class="min-h-screen flex flex-col popup-bg text-white">
     <div class="flex flex-col w-full">
