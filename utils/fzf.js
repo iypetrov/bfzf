@@ -2,7 +2,7 @@ export function fzfSearch(cnt, input) {
   let data = cnt.getElementsByTagName("div");
   let indexUrls = [];
 
-  if (input.length == 0) {
+  if (input.length === 0) {
     indexUrls = defaultCnt(data);
   } else {
     indexUrls = fzfCnt(data, input);

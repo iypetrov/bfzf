@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const input = document.getElementById("filter");
   const cnt = document.getElementById("history-list");
 
-  browser.history.search({ text: "", maxResults: 250 }).then((historyItems) => {
+  browser.history.search({ text: "" }).then((historyItems) => {
     let urls = [
       ...new Set(historyItems.map((item) => item.title + " " + item.url)),
     ];
