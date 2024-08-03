@@ -8,20 +8,11 @@
     "tabs",
     "bookmarks"
   ],
-  "icons": {
-    "48": "public/logo192.png"
-  },
   "commands": {
     "open_history": {
-      "suggested_key": {
-        "default": "Ctrl+Alt+H"
-      },
       "description": "Open history"
     },
     "open_bookmarks": {
-      "suggested_key": {
-        "default": "Ctrl+Alt+B"
-      },
       "description": "Open bookmarks"
     }
   },

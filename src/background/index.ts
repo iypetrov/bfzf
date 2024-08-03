@@ -1,4 +1,4 @@
-window.browser.commands.onCommand.addListener((command) => {
+chrome.commands.onCommand.addListener((command: string) => {
     const screenWidth = window.screen.availWidth;
     const screenHeight = window.screen.availHeight;
     const width = Math.round(screenWidth * 0.5);
@@ -7,13 +7,13 @@ window.browser.commands.onCommand.addListener((command) => {
     const top = (screenHeight - height) / 2;
 
     let url = "dist/index.html";
-    // if (command === "open_history") {
-    //     url += "?action=open_history";
-    // } else if (command === "open_bookmarks") {
-    //     url += "?action=open_bookmarks";
-    // }
+    if (command === "open_history") {
+        url += "?action=open_history";
+    } else if (command === "open_bookmarks") {
+        url += "?action=open_bookmarks";
+    }
 
-    window.browser.windows.create({
+    chrome.windows.create({
         url: url,
         type: "popup",
         width: width,
