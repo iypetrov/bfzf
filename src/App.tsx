@@ -1,14 +1,9 @@
 import React from 'react';
-import HistoryComponent from "./components/HistoryComponent";
+import FuzzyFindView from "./views/FuzzyFindView";
 
 function App() {
   return (
-      <div className="App">
-          <button className="btn btn-primary">Primary</button>
-          <button className="btn btn-primary">Primary</button>
-          <button className="btn btn-primary">Primary</button>
-          <HistoryComponent></HistoryComponent>
-      </div>
+      <FuzzyFindView/>
   );
 }
 

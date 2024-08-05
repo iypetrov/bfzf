@@ -1,4 +1,6 @@
-chrome.commands.onCommand.addListener((command: string) => {
+import browser from "webextension-polyfill";
+
+browser.commands.onCommand.addListener((command: string) => {
     const screenWidth = window.screen.availWidth;
     const screenHeight = window.screen.availHeight;
     const width = Math.round(screenWidth * 0.5);
@@ -13,7 +15,7 @@ chrome.commands.onCommand.addListener((command: string) => {
         url += "?action=open_bookmarks";
     }
 
-    chrome.windows.create({
+    browser.windows.create({
         url: url,
         type: "popup",
         width: width,
