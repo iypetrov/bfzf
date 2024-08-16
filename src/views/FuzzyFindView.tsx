@@ -33,7 +33,6 @@ const FuzzyFindView = () => {
                 callback={callback}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
-                isLoading={isLoading}
                 setIsLoading={setIsLoading}/>
             {
                 isLoading

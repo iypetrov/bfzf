@@ -12,11 +12,10 @@ interface SearchBarProps {
     callback: (fzfResults: SearchBarResultCallback) => void;
     selectedIndex: number;
     setSelectedIndex: (index: number) => void;
-    isLoading: boolean;
     setIsLoading: (index: boolean) => void;
 }
 
-const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, isLoading, setIsLoading}: SearchBarProps) => {
+const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoading}: SearchBarProps) => {
     const options: AsyncFzfOptions<IUrl> = {
         fuzzy: 'v1',
         selector: (item) => `${item.title} (${item.url})`
