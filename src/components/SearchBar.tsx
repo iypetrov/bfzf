@@ -22,16 +22,19 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
     };
     const fzf = new AsyncFzf<IUrl[]>(props, options);
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [fzfResults, setFzfResults] = useState<IUrl[]>([]);
 
     useEffect(() => {
         fzf.find(searchQuery)
             .then((result) => {
+                setSelectedIndex(0);
+                setIsLoading(false);
                 const callbackResult: SearchBarResultCallback = {
                     selectedIndex: selectedIndex,
                     fzfResults: result,
                 };
-                setIsLoading(false);
                 callback(callbackResult);
+                setFzfResults(result.map((item) => item.item));
             });
     }, [searchQuery, props]);
 
@@ -46,7 +49,7 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
                         setIsLoading(true);
                     }
                 }
-                onKeyDown={useKeyboardListener(props, selectedIndex, setSelectedIndex)}
+                onKeyDown={useKeyboardListener(fzfResults, selectedIndex, setSelectedIndex)}
                 autoFocus={true}
             />
         </div>
