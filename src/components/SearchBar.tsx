@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import useKeyboardListener from "../hooks/listeners";
-import {Fzf, FzfOptions, FzfResultItem} from "fzf";
+import {AsyncFzf, AsyncFzfOptions, FzfResultItem} from "fzf";
 
 export type SearchBarResultCallback = {
     selectedIndex: number;
@@ -12,20 +12,28 @@ interface SearchBarProps {
     callback: (fzfResults: SearchBarResultCallback) => void;
     selectedIndex: number;
     setSelectedIndex: (index: number) => void;
+    isLoading: boolean;
+    setIsLoading: (index: boolean) => void;
 }
 
-const SearchBar = ({props, callback, selectedIndex, setSelectedIndex}: SearchBarProps) => {
-    const options: FzfOptions<IUrl> = {selector: (item) => `${item.title} (${item.url})`};
-    const fzf = new Fzf<IUrl[]>(props, options);
+const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, isLoading, setIsLoading}: SearchBarProps) => {
+    const options: AsyncFzfOptions<IUrl> = {
+        fuzzy: 'v1',
+        selector: (item) => `${item.title} (${item.url})`
+    };
+    const fzf = new AsyncFzf<IUrl[]>(props, options);
     const [searchQuery, setSearchQuery] = useState<string>('');
 
     useEffect(() => {
-        const fzfResult: FzfResultItem<IUrl>[] = fzf.find(searchQuery);
-        const callbackResult: SearchBarResultCallback = {
-            selectedIndex: selectedIndex,
-            fzfResults: fzfResult
-        };
-        callback(callbackResult);
+        fzf.find(searchQuery)
+            .then((result) => {
+                const callbackResult: SearchBarResultCallback = {
+                    selectedIndex: selectedIndex,
+                    fzfResults: result,
+                };
+                setIsLoading(false);
+                callback(callbackResult);
+            });
     }, [searchQuery, props]);
 
     return (
@@ -34,7 +42,11 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex}: SearchBar
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                        setSearchQuery(e.target.value)
+                        setIsLoading(true);
+                    }
+                }
                 onKeyDown={useKeyboardListener(props, selectedIndex, setSelectedIndex)}
                 autoFocus={true}
             />

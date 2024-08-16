@@ -21,7 +21,7 @@ const Url = ({index, selectedIndex, props}: UrlProps) => {
     const renderText = () => {
         const chars = `${title} (${url})`.split('');
         return chars.map((char, i) => (
-                props.positions.has(i) ? (<b key={i} className="text-red-500"> {char}</b>) : (char)
+                props.positions.has(i) ? (<span key={i} className="text-red-500">{char}</span>) : (char)
             )
         );
     };
