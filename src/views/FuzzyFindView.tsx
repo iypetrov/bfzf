@@ -3,9 +3,12 @@ import {ActionType, load} from "../scripts/polyfill";
 import SearchBar, {SearchBarResultCallback} from "../components/SearchBar";
 import {FzfResultItem} from "fzf";
 import Url from "../components/Url";
+import Footer from "../components/Footer";
+import Title from "../components/Title";
+import Delimiter from "../components/Delimiter";
 
 const FuzzyFindView = () => {
-    const [title, setTitle] = useState<string>('');
+    const [title, setTitle] = useState<ActionType>('');
     const [urls, setUrls] = useState<IUrl[]>([]);
     const [filteredUrls, setFilteredUrls] = useState<FzfResultItem<IUrl>[]>([]);
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -26,23 +29,27 @@ const FuzzyFindView = () => {
     }
 
     return (
-        <div>
-            <h1>{title}</h1>
+        <div className="flex flex-col h-screen px-2">
+            <Title text={title}/>
             <SearchBar
                 props={urls}
                 callback={callback}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
-                setIsLoading={setIsLoading}/>
-            {
-                isLoading
-                    ? <div>Loading...</div> :
-                    <div>
+                setIsLoading={setIsLoading}
+            />
+            <div className="flex-1 overflow-auto">
+                {isLoading
+                    ? <div>Loading...</div>
+                    : <div>
                         {filteredUrls.map((item: FzfResultItem<IUrl>, index: number) => (
                             <Url key={index} index={index} selectedIndex={selectedIndex} props={item}/>
                         ))}
                     </div>
-            }
+                }
+            </div>
+            <Delimiter/>
+            <Footer/>
         </div>
     );
 };

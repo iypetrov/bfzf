@@ -2,7 +2,7 @@ import browser, {Bookmarks, History} from "webextension-polyfill";
 import HistoryItem = History.HistoryItem;
 import BookmarkTreeNode = Bookmarks.BookmarkTreeNode;
 
-export type ActionType = 'open_history' | 'open_bookmarks';
+export type ActionType = 'open_history' | 'open_bookmarks' | '';
 
 export async function load(action: ActionType): Promise<IUrl[]> {
     if (action === 'open_history') {

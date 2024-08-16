@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
-            <h1>Footer</h1>
+        <div className="flex justify-center mb-1">
+            <h1 className="font-bold text-base">Footer</h1>
         </div>
     );
 }

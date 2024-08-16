@@ -39,7 +39,7 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
     }, [searchQuery, props]);
 
     return (
-        <div>
+        <div className="w-full h-8 mb-3 text-secondary-content">
             <input
                 type="text"
                 placeholder="Search..."
@@ -51,6 +51,7 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
                 }
                 onKeyDown={useKeyboardListener(fzfResults, selectedIndex, setSelectedIndex)}
                 autoFocus={true}
+                className="w-full h-full px-2 text-sm text-base-content bg-base-100 border-2 border-base-200 rounded-md focus:border-accent focus:outline-none focus:ring-accent"
             />
         </div>
     );
