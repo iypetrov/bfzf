@@ -3,7 +3,7 @@ import FuzzyFindView from "./views/FuzzyFindView";
 
 function App() {
   return (
-      <FuzzyFindView/>
+    <FuzzyFindView/>
   );
 }
 

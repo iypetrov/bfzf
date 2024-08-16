@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "bfzf",
   "version": "2.0.0",
-  "description": "Browser extension that increase your productivity",
+  "description": "Browser extension that allows you to make your browsing experience more efficient.",
   "permissions": [
     "history",
     "tabs",
