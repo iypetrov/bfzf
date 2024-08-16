@@ -1,6 +1,6 @@
 import React from 'react';
-import { FzfResultItem } from 'fzf';
-import { selectedTarget } from '../hooks/listeners';
+import {FzfResultItem} from 'fzf';
+import {selectedTarget} from '../hooks/listeners';
 
 interface IUrl {
     title: string;
@@ -13,9 +13,9 @@ interface UrlProps {
     props: FzfResultItem<IUrl>;
 }
 
-const Url: React.FC<UrlProps> = ({ index, selectedIndex, props }) => {
-    const { item } = props;
-    const { title, url } = item;
+const Url = ({index, selectedIndex, props}: UrlProps) => {
+    const {item} = props;
+    const {title, url} = item;
     const isHighlighted = index === selectedIndex;
 
     const renderText = () => {
@@ -33,15 +33,15 @@ const Url: React.FC<UrlProps> = ({ index, selectedIndex, props }) => {
 
     return (
         <div className={isHighlighted ? 'bg-blue-500' : ''}>
-      <pre>
-        <a
-            href={url}
-            target={selectedTarget}
-            rel="noopener noreferrer"
-        >
-          {renderText()}
-        </a>
-      </pre>
+             <pre>
+                <a
+                    href={url}
+                    target={selectedTarget}
+                    rel="noopener noreferrer"
+                >
+                    {renderText()}
+                </a>
+            </pre>
         </div>
     );
 };

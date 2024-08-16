@@ -30,7 +30,7 @@ const FuzzyFindView = () => {
             <h1>{title}</h1>
             <SearchBar props={urls} callback={callback} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}/>
             {filteredUrls.map((item: FzfResultItem<IUrl>, index: number) => (
-               <Url index={index} selectedIndex={selectedIndex} props={item}/>
+               <Url key={index} index={index} selectedIndex={selectedIndex} props={item}/>
             ))}
         </div>
     );

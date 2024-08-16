@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ThemeSwitcher= () => {
+const ThemeSwitcher = () => {
     return (
         <div>
             <h1>Theme</h1>
