@@ -17,7 +17,7 @@ interface SearchBarProps {
 
 const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoading}: SearchBarProps) => {
     const options: AsyncFzfOptions<IUrl> = {
-        fuzzy: 'v1',
+        fuzzy: 'v2',
         selector: (item) => `${item.title} (${item.url})`
     };
     const fzf = new AsyncFzf<IUrl[]>(props, options);
@@ -39,7 +39,7 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
     }, [searchQuery, props]);
 
     return (
-        <div className="w-full h-8 mb-3 text-secondary-content">
+        <div className="w-full h-10 mb-3">
             <input
                 type="text"
                 placeholder="Search..."
@@ -51,7 +51,7 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
                 }
                 onKeyDown={useKeyboardListener(fzfResults, selectedIndex, setSelectedIndex)}
                 autoFocus={true}
-                className="w-full h-full px-2 text-sm text-base-content bg-base-100 border-2 border-base-200 rounded-md focus:border-accent focus:outline-none focus:ring-accent"
+                className="w-full h-full px-2 text-sm font-semibold bg-neutral text-neutral-content border-2 border-base-200 rounded-md focus:border-accent focus:outline-none focus:ring-accent"
             />
         </div>
     );

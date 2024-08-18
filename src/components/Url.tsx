@@ -8,56 +8,48 @@ interface UrlProps {
     props: FzfResultItem<IUrl>;
 }
 
-// TODO: Add a element before/after highlighted and move when reaching it
 const Url = ({ index, selectedIndex, props }: UrlProps) => {
     const { item } = props;
     const { title, url } = item;
+    const itemRef = useRef<HTMLDivElement>(null);
     const isHighlighted = index === selectedIndex;
 
-    const urlRef = useRef<HTMLAnchorElement>(null);
-
     useEffect(() => {
-        if (isHighlighted && urlRef.current) {
-            urlRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'nearest'
-            });
+        if (isHighlighted && itemRef.current) {
+            let options: ScrollIntoViewOptions = {
+                behavior: 'auto',
+                block: 'center'
+            };
+            itemRef.current.scrollIntoView(options);
         }
     }, [isHighlighted]);
 
     const renderText = () => {
-        const titleChars = title.split('');
-        const urlChars = url.split('');
-        return (
-            <>
-                <span className="font-bold">{titleChars.map((char, i) => (
-                    props.positions.has(i) ? (<span key={i} className="text-accent">{char}</span>) : (char)
-                ))}</span>
-                {' '}
-                {urlChars.map((char, i) => (
-                    props.positions.has(title.length + i + 1) ? (<span key={i} className="text-accent">{char}</span>) : (char)
-                ))}
-            </>
-        );
+        const chars = `${title} ${url}`.split('');
+        return chars.map((char, i) => (
+            props.positions.has(i) ? (<span key={i} className="text-error">{char}</span>) : (char)
+        ));
     };
 
     return (
         <div
-            className={`overflow-hidden w-full text-sm tracking-wide ${isHighlighted ? 'bg-secondary text-secondary-content' : ''}`}
+            ref={itemRef}
+            className={`text-sm ${isHighlighted ? 'highlighted bg-neutral text-neutral-content' : ''} overflow-hidden whitespace-nowrap`}
         >
-            <pre style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {isHighlighted && <span className="text-lg text-accent font-bold">{'> '}</span>}
+            <div className="flex flex-row items-center overflow-hidden whitespace-nowrap">
+                {isHighlighted
+                    ? <div className="px-0.5 text-error">{'>'}</div>
+                    : <div className="px-0.5 bg-neutral text-transparent">{'>'}</div>
+                }
                 <a
-                    ref={urlRef}
                     href={url}
                     target={selectedTarget}
                     rel="noopener noreferrer"
-                    className="w-full text-base-content inline"
+                    className="ml-1 text-base-content w-full tracking-wide overflow-hidden whitespace-nowrap text-ellipsis"
                 >
                     {renderText()}
                 </a>
-            </pre>
+            </div>
         </div>
     );
 };
