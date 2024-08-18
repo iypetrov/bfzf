@@ -18,7 +18,7 @@ function matchActionTypeToTitle(actionType: ActionType): string {
 
 const Title = ({text}: TitleProps) => {
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-1">
             <h1 className="font-bold text-base">{matchActionTypeToTitle(text)}</h1>
         </div>
     );

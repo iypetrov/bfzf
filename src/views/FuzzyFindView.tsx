@@ -39,15 +39,26 @@ const FuzzyFindView = () => {
                 setIsLoading={setIsLoading}
             />
             <div className="flex-1 overflow-auto">
-                {isLoading
-                    ? <div>Loading...</div>
-                    : <div>
+                {filteredUrls.length === 0 && (
+                    <div className="h-full flex items-center justify-center text-center font-bold text-lg">
+                        No results found
+                    </div>
+                )}
+
+                {filteredUrls.length > 0 && isLoading && (
+                    <div className="h-full flex items-center justify-center text-center">
+                        <span className="loading loading-spinner text-neutral"></span>
+                    </div>
+                )}
+
+                {filteredUrls.length > 0 && !isLoading && (
+                    <div>
                         {filteredUrls.map((item: FzfResultItem<IUrl>, index: number) => (
                             <Url key={index} index={index} selectedIndex={selectedIndex}
-                                 setSelectedIndex={setSelectedIndex} props={item}/>
+                                 setSelectedIndex={setSelectedIndex} props={item} />
                         ))}
                     </div>
-                }
+                )}
             </div>
             <Delimiter/>
             <Footer/>
