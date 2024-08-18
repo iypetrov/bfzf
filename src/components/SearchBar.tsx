@@ -26,15 +26,17 @@ const SearchBar = ({props, callback, selectedIndex, setSelectedIndex, setIsLoadi
 
     useEffect(() => {
         fzf.find(searchQuery)
-            .then((result) => {
-                setSelectedIndex(0);
-                setIsLoading(false);
+            .then((result: FzfResultItem<IUrl>[]) => {
                 const callbackResult: SearchBarResultCallback = {
                     selectedIndex: selectedIndex,
                     fzfResults: result,
                 };
                 callback(callbackResult);
                 setFzfResults(result.map((item) => item.item));
+            })
+            .finally(() => {
+                setIsLoading(false);
+                setSelectedIndex(0);
             });
     }, [searchQuery, props]);
 

@@ -1,28 +1,41 @@
-import React, { useRef, useEffect } from 'react';
-import { FzfResultItem } from 'fzf';
-import { selectedTarget } from '../hooks/listeners';
+import React, {useRef, useEffect, useState} from 'react';
+import {FzfResultItem} from 'fzf';
+import {selectedTarget} from '../hooks/listeners';
 
 interface UrlProps {
     index: number;
     selectedIndex: number;
+    setSelectedIndex: (index: number) => void;
     props: FzfResultItem<IUrl>;
 }
 
-const Url = ({ index, selectedIndex, props }: UrlProps) => {
-    const { item } = props;
-    const { title, url } = item;
+const Url = ({index, selectedIndex, setSelectedIndex, props}: UrlProps) => {
+    const {item} = props;
+    const {title, url} = item;
     const itemRef = useRef<HTMLDivElement>(null);
-    const isHighlighted = index === selectedIndex;
+    const [isHovered, setIsHovered] = useState<boolean>(false);
+    let isHighlighted = index === selectedIndex;
 
     useEffect(() => {
-        if (isHighlighted && itemRef.current) {
-            let options: ScrollIntoViewOptions = {
+        if (isHighlighted && itemRef.current && !isHovered) {
+            const scrollOptionsKeyboard: ScrollIntoViewOptions = {
                 behavior: 'auto',
                 block: 'center'
             };
-            itemRef.current.scrollIntoView(options);
+
+            itemRef.current.scrollIntoView(scrollOptionsKeyboard);
         }
     }, [isHighlighted]);
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+        setSelectedIndex(index);
+    }
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+        setSelectedIndex(index);
+    }
 
     const renderText = () => {
         const chars = `${title} ${url}`.split('');
@@ -35,6 +48,8 @@ const Url = ({ index, selectedIndex, props }: UrlProps) => {
         <div
             ref={itemRef}
             className={`text-sm ${isHighlighted ? 'highlighted bg-neutral text-neutral-content' : ''} overflow-hidden whitespace-nowrap`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             <div className="flex flex-row items-center overflow-hidden whitespace-nowrap">
                 {isHighlighted

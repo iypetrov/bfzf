@@ -43,7 +43,8 @@ const FuzzyFindView = () => {
                     ? <div>Loading...</div>
                     : <div>
                         {filteredUrls.map((item: FzfResultItem<IUrl>, index: number) => (
-                            <Url key={index} index={index} selectedIndex={selectedIndex} props={item}/>
+                            <Url key={index} index={index} selectedIndex={selectedIndex}
+                                 setSelectedIndex={setSelectedIndex} props={item}/>
                         ))}
                     </div>
                 }
