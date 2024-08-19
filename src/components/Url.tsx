@@ -47,7 +47,7 @@ const Url = ({index, selectedIndex, setSelectedIndex, props}: UrlProps) => {
     return (
         <div
             ref={itemRef}
-            className={`text-sm ${isHighlighted ? 'highlighted bg-neutral text-neutral-content' : ''} overflow-hidden whitespace-nowrap`}
+            className={`text-sm ${isHighlighted ? 'bg-neutral text-neutral-content' : ''} overflow-hidden whitespace-nowrap`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -60,7 +60,7 @@ const Url = ({index, selectedIndex, setSelectedIndex, props}: UrlProps) => {
                     href={url}
                     target={selectedTarget}
                     rel="noopener noreferrer"
-                    className="ml-1 text-base-content w-full tracking-wide overflow-hidden whitespace-nowrap text-ellipsis"
+                    className="ml-1 w-full tracking-wide overflow-hidden whitespace-nowrap text-ellipsis"
                 >
                     {renderText()}
                 </a>
