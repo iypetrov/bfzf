@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {ActionType, load} from "../scripts/polyfill";
-import SearchBar, {SearchBarResultCallback} from "../components/SearchBar";
-import {FzfResultItem} from "fzf";
+import React, { useEffect, useState } from 'react';
+import { ActionType, load } from "../scripts/polyfill";
+import SearchBar, { SearchBarResultCallback } from "../components/SearchBar";
+import { FzfResultItem } from "fzf";
 import Url from "../components/Url";
 import Footer from "../components/Footer";
 import Title from "../components/Title";
@@ -18,7 +18,7 @@ const FuzzyFindView = () => {
         let params = new URLSearchParams(window.location.search);
         const action = params.get('action')! as ActionType;
         load(action).then((loadedUrls: IUrl[]) => {
-            setTitle(action)
+            setTitle(action);
             setUrls(loadedUrls);
         });
     }, []);
@@ -26,11 +26,11 @@ const FuzzyFindView = () => {
     const callback = (callbackResult: SearchBarResultCallback): void => {
         setSelectedIndex(callbackResult.selectedIndex);
         setFilteredUrls(callbackResult.fzfResults);
-    }
+    };
 
     return (
         <div className="flex flex-col h-screen px-2">
-            <Title text={title}/>
+            <Title text={title} />
             <SearchBar
                 props={urls}
                 callback={callback}
@@ -60,8 +60,8 @@ const FuzzyFindView = () => {
                     </div>
                 )}
             </div>
-            <Delimiter/>
-            <Footer/>
+            <Delimiter />
+            <Footer />
         </div>
     );
 };

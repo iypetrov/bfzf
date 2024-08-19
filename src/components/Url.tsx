@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {FzfResultItem} from 'fzf';
-import {selectedTarget} from '../hooks/listeners';
+import {selectedTarget} from "../hooks/listeners";
 
 interface UrlProps {
     index: number;
