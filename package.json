@@ -24,6 +24,7 @@
   },
   "scripts": {
     "dev": "parcel watch src/index.html src/background/index.ts --public-url=./",
-    "build": "parcel build src/index.html src/background/index.ts --public-url=./"
+    "build": "parcel build src/index.html src/background/index.ts --public-url=./",
+    "firefox": "web-ext build"
   }
 }
