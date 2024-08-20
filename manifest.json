@@ -8,6 +8,9 @@
     "tabs",
     "bookmarks"
   ],
+  "icons": {
+    "48": "assets/logo.png"
+  },
   "commands": {
     "open_history": {
       "description": "Open history"
