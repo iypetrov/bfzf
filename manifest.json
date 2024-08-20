@@ -1,33 +1,27 @@
 {
   "manifest_version": 2,
   "name": "bfzf",
-  "version": "1.1.0",
-  "description": "A Firefox add-on  that allows you to fzf your bookmarks & history.",
+  "version": "2.0.0",
+  "description": "Browser extension that allows you to make your browsing experience more efficient.",
   "permissions": [
     "history",
     "tabs",
     "bookmarks"
   ],
   "icons": {
-    "48": "icon.png"
+    "48": "assets/logo.png"
   },
   "commands": {
     "open_history": {
-      "suggested_key": {
-        "default": "Ctrl+Alt+H"
-      },
       "description": "Open history"
     },
     "open_bookmarks": {
-      "suggested_key": {
-        "default": "Ctrl+Alt+B"
-      },
       "description": "Open bookmarks"
     }
   },
   "background": {
     "scripts": [
-      "background.js"
+      "dist/background/index.js"
     ]
   }
 }
